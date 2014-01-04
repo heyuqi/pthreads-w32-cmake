@@ -47,3 +47,9 @@ SET (SOURCE_FILES
 )
 
 ADD_LIBRARY (pthreads ${SOURCE_FILES})
+
+# Workaround for issue 0011240: VS 2010 Win64 does not correctly set /MACHINE:x64
+# in the solution project files.
+IF (CMAKE_CL_64)
+  SET_TARGET_PROPERTIES (pthreads PROPERTIES STATIC_LIBRARY_FLAGS "/machine:x64")
+ENDIF (CMAKE_CL_64)
